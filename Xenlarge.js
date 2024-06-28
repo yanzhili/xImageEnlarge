@@ -15,7 +15,7 @@
 ;(function () {
   'use strict'
 
-  window.dev = true
+  window.dev = false
   const MatchPic = 'pbs.twimg.com/media'
   const MarkTag = 'zx-btn-added'
   function main() {
