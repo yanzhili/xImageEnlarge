@@ -20,8 +20,19 @@
   function main() {
     initFullscreenDiv()
     observeHtml((imgElement) => {
-      addButton(imgElement.parentElement, imgToLarge(imgElement.src))
+      isLongImage(imgElement.src) &&
+        addButton(imgElement.parentElement, imgToLarge(imgElement.src))
     })
+  }
+
+  function isLongImage(imgSrc) {
+    if (
+      imgSrc.indexOf('name=4096x4096') > -1 ||
+      imgSrc.indexOf('name=large') > -1
+    ) {
+      return true
+    }
+    return false
   }
 
   function addButton(parentElement, imgSrc) {
@@ -40,7 +51,7 @@
     button.style.backgroundColor = '#000'
     button.style.opacity = '0.7'
     button.style.backgroundImage =
-      'url(data:image/svg+xml,%3Csvg%20t%3D%221719478365221%22%20class%3D%22icon%22%20viewBox%3D%220%200%201024%201024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20p-id%3D%221461%22%20width%3D%2248%22%20height%3D%2248%22%3E%3Cpath%20d%3D%22M396.8%20228.22912v-25.6H204.8v192h25.6V246.32832l182.18496%20182.19008%2018.10432-18.0992-182.19008-182.19008zM627.2%20202.62912v25.6h148.3008L593.31072%20410.4192l18.0992%2018.0992L793.6%20246.32832v148.3008h25.6v-192zM412.58496%20591.13984L230.4%20773.32992v-148.3008h-25.6v192h192v-25.6H248.4992l182.19008-182.19008zM793.6%20773.32992l-182.19008-182.19008-18.0992%2018.0992%20182.19008%20182.19008H627.2v25.6H819.2v-192h-25.6z%22%20fill%3D%22%23ffffff%22%20p-id%3D%221462%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E)'
+      'url(https://pbs.twimg.com/profile_images/1679821916776067072/H2FNeCKc_400x400.jpg)'
     button.style.backgroundRepeat = 'no-repeat'
     button.style.backgroundSize = 'cover'
     button.onclick = (e) => {
@@ -152,7 +163,7 @@
     closeImgDiv.style.backgroundColor = '#000'
     closeImgDiv.style.opacity = '0.8'
     closeImgDiv.style.backgroundImage =
-      'url(data:image/svg+xml,%3Csvg%20t%3D%221719482286631%22%20class%3D%22icon%22%20viewBox%3D%220%200%201024%201024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20p-id%3D%224410%22%20width%3D%2248%22%20height%3D%2248%22%3E%3Cpath%20d%3D%22M510.8096%20420.3008l335.296-335.296%2090.5088%2090.5088-335.296%20335.296%20335.296%20335.296-90.5088%2090.5088-335.296-335.296-335.296%20335.296-90.5088-90.5088%20335.296-335.296-335.296-335.296%2090.5088-90.5088z%22%20fill%3D%22%23e6e6e6%22%20p-id%3D%224411%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E)'
+      'url(data:image/svg+xml;base64,PHN2ZyB0PSIxNzE5NDc4MzY1MjIxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE0NjEiIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCI+PHBhdGggZD0iTTM5Ni44IDIyOC4yMjkxMnYtMjUuNkgyMDQuOHYxOTJoMjUuNlYyNDYuMzI4MzJsMTgyLjE4NDk2IDE4Mi4xOTAwOCAxOC4xMDQzMi0xOC4wOTkyLTE4Mi4xOTAwOC0xODIuMTkwMDh6TTYyNy4yIDIwMi42MjkxMnYyNS42aDE0OC4zMDA4TDU5My4zMTA3MiA0MTAuNDE5MmwxOC4wOTkyIDE4LjA5OTJMNzkzLjYgMjQ2LjMyODMydjE0OC4zMDA4aDI1LjZ2LTE5MnpNNDEyLjU4NDk2IDU5MS4xMzk4NEwyMzAuNCA3NzMuMzI5OTJ2LTE0OC4zMDA4aC0yNS42djE5MmgxOTJ2LTI1LjZIMjQ4LjQ5OTJsMTgyLjE5MDA4LTE4Mi4xOTAwOHpNNzkzLjYgNzczLjMyOTkybC0xODIuMTkwMDgtMTgyLjE5MDA4LTE4LjA5OTIgMTguMDk5MiAxODIuMTkwMDggMTgyLjE5MDA4SDYyNy4ydjI1LjZIODE5LjJ2LTE5MmgtMjUuNnoiIGZpbGw9IiM3MDcwNzAiIHAtaWQ9IjE0NjIiPjwvcGF0aD48L3N2Zz4K)'
     closeImgDiv.style.backgroundRepeat = 'no-repeat'
     closeImgDiv.style.backgroundSize = 'cover'
     closeImgDiv.onclick = () => {
