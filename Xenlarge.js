@@ -51,7 +51,7 @@
     button.style.backgroundColor = '#000'
     button.style.opacity = '0.7'
     button.style.backgroundImage =
-      'url(https://yanzhili.github.io/xImageEnlarge/assets/fullscreen.png)'
+      'url(data:image/svg+xml;base64,PHN2ZyB0PSIxNzE5NTUzOTM0NDM0IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjExNjQ1IiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik0zOTYuOCAyMjguMjI5MTJ2LTI1LjZIMjA0Ljh2MTkyaDI1LjZWMjQ2LjMyODMybDE4Mi4xODQ5NiAxODIuMTkwMDggMTguMTA0MzItMTguMDk5Mi0xODIuMTkwMDgtMTgyLjE5MDA4ek02MjcuMiAyMDIuNjI5MTJ2MjUuNmgxNDguMzAwOEw1OTMuMzEwNzIgNDEwLjQxOTJsMTguMDk5MiAxOC4wOTkyTDc5My42IDI0Ni4zMjgzMnYxNDguMzAwOGgyNS42di0xOTJ6TTQxMi41ODQ5NiA1OTEuMTM5ODRMMjMwLjQgNzczLjMyOTkydi0xNDguMzAwOGgtMjUuNnYxOTJoMTkydi0yNS42SDI0OC40OTkybDE4Mi4xOTAwOC0xODIuMTkwMDh6TTc5My42IDc3My4zMjk5MmwtMTgyLjE5MDA4LTE4Mi4xOTAwOC0xOC4wOTkyIDE4LjA5OTIgMTgyLjE5MDA4IDE4Mi4xOTAwOEg2MjcuMnYyNS42SDgxOS4ydi0xOTJoLTI1LjZ6IiBmaWxsPSIjZmZmZmZmIiBwLWlkPSIxMTY0NiI+PC9wYXRoPjwvc3ZnPg==)'
     button.style.backgroundRepeat = 'no-repeat'
     button.style.backgroundSize = 'cover'
     button.onclick = (e) => {
