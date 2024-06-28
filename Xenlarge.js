@@ -2,11 +2,12 @@
 // @name         X Image Enlarge Tool
 // @name:zh-CN   推特图片放大
 // @namespace    https://github.com/yanzhili/xImageEnlarge
-// @version      2024-06-24
+// @version      2024-06-24_4
 // @description  Add a button on the left top conner of a image,for convenience of displaying long images on X
 // @description:zh-CN 在图片右上角显示一个放大按钮，方便显示推特中的长图
 // @author       James.Yan
 // @match        https://x.com/*
+// @match        https://twitter.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
 // @grant        none
 // @license      MIT
@@ -15,7 +16,7 @@
 ;(function () {
   'use strict'
 
-  window.dev = false
+  window.dev = true
   const MatchPic = 'pbs.twimg.com/media'
   const MarkTag = 'zx-btn-added'
   function main() {
