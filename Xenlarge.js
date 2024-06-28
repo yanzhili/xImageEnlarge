@@ -21,8 +21,7 @@
   function main() {
     initFullscreenDiv()
     observeHtml((imgElement) => {
-      isLongImage(imgElement.src) &&
-        addButton(imgElement.parentElement, imgToLarge(imgElement.src))
+      addButton(imgElement.parentElement, imgToLarge(imgElement.src))
     })
   }
 
