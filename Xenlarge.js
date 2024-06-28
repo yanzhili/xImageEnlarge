@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X Image Enlarge Tool
 // @name:zh-CN   推特图片放大
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/yanzhili/xImageEnlarge
 // @version      2024-06-24
 // @description  Add a button on the left top conner of a image,for convenience of displaying long images on X
 // @description:zh-CN 在图片右上角显示一个放大按钮，方便显示推特中的长图
@@ -51,7 +51,7 @@
     button.style.backgroundColor = '#000'
     button.style.opacity = '0.7'
     button.style.backgroundImage =
-      'url(https://pbs.twimg.com/profile_images/1679821916776067072/H2FNeCKc_400x400.jpg)'
+      'url(https://yanzhili.github.io/xImageEnlarge/assets/fullscreen.png)'
     button.style.backgroundRepeat = 'no-repeat'
     button.style.backgroundSize = 'cover'
     button.onclick = (e) => {
