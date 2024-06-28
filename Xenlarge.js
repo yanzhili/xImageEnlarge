@@ -128,7 +128,9 @@
     main()
   }
 
-  const ImgInitCss = 'margin: auto;width:auto;height:auto;cursor:zoom-in'
+  const ImgFullWidthCss = 'width:100%;height:auto;margin:auto;cursor:zoom-in'
+  const ImgFullHeightCss = 'width:auto;height:100%;margin:auto;cursor:zoom-in'
+  const ImgAutoCss = 'width:auto;height:auto;margin:auto;cursor:zoom-in'
   const FSDivId = 'zx-fullsceen-div-id'
   const FSImgId = 'zx-fullsceen-img-id'
   function initFullscreenDiv() {
@@ -142,14 +144,20 @@
     }
     let imgElmt = document.createElement('img')
     imgElmt.id = FSImgId
-    imgElmt.style = ImgInitCss
+    imgElmt.style = ImgAutoCss
+    imgElmt.setAttribute('zx-display-type', 'image-auto')
     imgElmt.onclick = (e) => {
       e.preventDefault()
       e.stopPropagation()
-      if (imgElmt.style.cursor == 'zoom-in') {
-        imgElmt.style = 'margin: auto;width:100%;height:auto;cursor:zoom-out'
-      } else {
-        imgElmt.style = ImgInitCss
+      if (imgElmt.getAttribute('zx-display-type') == 'image-auto') {
+        imgElmt.setAttribute('zx-display-type', 'image-fw')
+        imgElmt.style = ImgFullWidthCss
+      } else if (imgElmt.getAttribute('zx-display-type') == 'image-fw') {
+        imgElmt.setAttribute('zx-display-type', 'image-fh')
+        imgElmt.style = ImgFullHeightCss
+      } else if (imgElmt.getAttribute('zx-display-type') == 'image-fh') {
+        imgElmt.setAttribute('zx-display-type', 'image-auto')
+        imgElmt.style = ImgAutoCss
       }
     }
 
