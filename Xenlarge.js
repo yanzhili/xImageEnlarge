@@ -9,6 +9,7 @@
 // @match        https://x.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=x.com
 // @grant        none
+// @license      MIT
 // ==/UserScript==
 
 ;(function () {
@@ -47,13 +48,11 @@
 
     let button = document.createElement('div')
     button.id = genRandomID('btn')
-    button.style = 'width:32px;height:32px;'
+    button.style =
+      'width:50px;height:25px;line-height:25px;text-align: center;font-size:12px;font-famliy:ui-monospace;cursor: pointer;color: white;'
     button.style.backgroundColor = '#000'
     button.style.opacity = '0.7'
-    button.style.backgroundImage =
-      'url(data:image/svg+xml;base64,PHN2ZyB0PSIxNzE5NTUzOTM0NDM0IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjExNjQ1IiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik0zOTYuOCAyMjguMjI5MTJ2LTI1LjZIMjA0Ljh2MTkyaDI1LjZWMjQ2LjMyODMybDE4Mi4xODQ5NiAxODIuMTkwMDggMTguMTA0MzItMTguMDk5Mi0xODIuMTkwMDgtMTgyLjE5MDA4ek02MjcuMiAyMDIuNjI5MTJ2MjUuNmgxNDguMzAwOEw1OTMuMzEwNzIgNDEwLjQxOTJsMTguMDk5MiAxOC4wOTkyTDc5My42IDI0Ni4zMjgzMnYxNDguMzAwOGgyNS42di0xOTJ6TTQxMi41ODQ5NiA1OTEuMTM5ODRMMjMwLjQgNzczLjMyOTkydi0xNDguMzAwOGgtMjUuNnYxOTJoMTkydi0yNS42SDI0OC40OTkybDE4Mi4xOTAwOC0xODIuMTkwMDh6TTc5My42IDc3My4zMjk5MmwtMTgyLjE5MDA4LTE4Mi4xOTAwOC0xOC4wOTkyIDE4LjA5OTIgMTgyLjE5MDA4IDE4Mi4xOTAwOEg2MjcuMnYyNS42SDgxOS4ydi0xOTJoLTI1LjZ6IiBmaWxsPSIjZmZmZmZmIiBwLWlkPSIxMTY0NiI+PC9wYXRoPjwvc3ZnPg==)'
-    button.style.backgroundRepeat = 'no-repeat'
-    button.style.backgroundSize = 'cover'
+    button.innerText = 'ZOOM'
     button.onclick = (e) => {
       e.preventDefault()
       e.stopPropagation()
@@ -163,9 +162,10 @@
     closeImgDiv.style.backgroundColor = '#000'
     closeImgDiv.style.opacity = '0.8'
     closeImgDiv.style.backgroundImage =
-      'url(data:image/svg+xml;base64,PHN2ZyB0PSIxNzE5NDc4MzY1MjIxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE0NjEiIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCI+PHBhdGggZD0iTTM5Ni44IDIyOC4yMjkxMnYtMjUuNkgyMDQuOHYxOTJoMjUuNlYyNDYuMzI4MzJsMTgyLjE4NDk2IDE4Mi4xOTAwOCAxOC4xMDQzMi0xOC4wOTkyLTE4Mi4xOTAwOC0xODIuMTkwMDh6TTYyNy4yIDIwMi42MjkxMnYyNS42aDE0OC4zMDA4TDU5My4zMTA3MiA0MTAuNDE5MmwxOC4wOTkyIDE4LjA5OTJMNzkzLjYgMjQ2LjMyODMydjE0OC4zMDA4aDI1LjZ2LTE5MnpNNDEyLjU4NDk2IDU5MS4xMzk4NEwyMzAuNCA3NzMuMzI5OTJ2LTE0OC4zMDA4aC0yNS42djE5MmgxOTJ2LTI1LjZIMjQ4LjQ5OTJsMTgyLjE5MDA4LTE4Mi4xOTAwOHpNNzkzLjYgNzczLjMyOTkybC0xODIuMTkwMDgtMTgyLjE5MDA4LTE4LjA5OTIgMTguMDk5MiAxODIuMTkwMDggMTgyLjE5MDA4SDYyNy4ydjI1LjZIODE5LjJ2LTE5MmgtMjUuNnoiIGZpbGw9IiM3MDcwNzAiIHAtaWQ9IjE0NjIiPjwvcGF0aD48L3N2Zz4K)'
+      'url(data:image/svg+xml;base64,PHN2ZyB0PSIxNzE5NTU1MTg1MTM4IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE0MDAzIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik01MTAuODA5NiA0MjAuMzAwOGwzMzUuMjk2LTMzNS4yOTYgOTAuNTA4OCA5MC41MDg4LTMzNS4yOTYgMzM1LjI5NiAzMzUuMjk2IDMzNS4yOTYtOTAuNTA4OCA5MC41MDg4LTMzNS4yOTYtMzM1LjI5Ni0zMzUuMjk2IDMzNS4yOTYtOTAuNTA4OC05MC41MDg4IDMzNS4yOTYtMzM1LjI5Ni0zMzUuMjk2LTMzNS4yOTYgOTAuNTA4OC05MC41MDg4eiIgZmlsbD0iI2ZmZmZmZiIgcC1pZD0iMTQwMDQiPjwvcGF0aD48L3N2Zz4=)'
     closeImgDiv.style.backgroundRepeat = 'no-repeat'
     closeImgDiv.style.backgroundSize = 'cover'
+    closeImgDiv.style.cursor = 'pointer'
     closeImgDiv.onclick = () => {
       dismissImg()
     }
