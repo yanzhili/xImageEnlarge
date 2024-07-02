@@ -21,9 +21,13 @@
   window.dev = true
   const MatchPic = 'pbs.twimg.com/media'
   const MarkTag = 'zx-btn-added'
+  const ImgClass = 'zx-img-class'
+  const ImgBtnClass = 'zx-btn-class'
   function main() {
+    initCss()
     initFullscreenDiv()
     observeHtml((imgElement) => {
+      imgElement.classList.add(ImgClass)
       addButton(imgElement.parentElement, imgToLarge(imgElement.src))
     })
   }
@@ -50,8 +54,9 @@
 
     let button = document.createElement('div')
     button.id = genRandomID('btn')
+    button.className = ImgBtnClass
     button.style =
-      'width:50px;height:25px;line-height:25px;text-align: center;font-size:12px;font-famliy:ui-monospace;cursor: pointer;color: white;'
+      'width:50px;height:22px;line-height:22px;text-align: center;font-size:12px;font-famliy:ui-monospace;cursor: pointer;color: white;'
     button.style.backgroundColor = '#000'
     button.style.opacity = '0.7'
     button.innerText = 'ZOOM'
@@ -184,6 +189,24 @@
     document.body.appendChild(fsDiv)
   }
 
+  function initCss() {
+    var css = `
+    .${ImgBtnClass}
+      {display:none}
+    .${ImgClass}:hover + .${ImgBtnClass}, .${ImgBtnClass}:hover
+      { display: inline-block }
+    `
+    var style = document.createElement('style')
+
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css
+    } else {
+      style.appendChild(document.createTextNode(css))
+    }
+
+    document.getElementsByTagName('head')[0].appendChild(style)
+  }
+
   function displayFullScreenImg(imgSrc) {
     let fsDiv = document.getElementById(FSDivId)
     fsDiv.style.overflowY = 'overflow-y:auto'
@@ -199,8 +222,6 @@
   function dismissImg() {
     let fsDiv = document.getElementById(FSDivId)
     fsDiv.style.display = 'none'
-    let img = document.getElementById(FSImgId)
-    img.style = ImgInitCss
   }
 
   function genRandomID(tag) {
