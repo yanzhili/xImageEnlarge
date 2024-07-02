@@ -130,7 +130,6 @@
     return imgSrc
   }
 
-  // (1)、页面所有内容加载完成执行
   window.onload = function () {
     main()
   }
@@ -267,7 +266,7 @@
     if (tag) {
       console.log(`${moment(new Date())}  ${tag}`, msg)
     } else {
-      console.log(`${moment(new Date())}  ${msg}`)
+      console.log(`${moment(new Date())}`, msg)
     }
   }
 })()
