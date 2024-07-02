@@ -140,6 +140,7 @@
   const ImgAutoCss = 'width:auto;height:auto;margin:auto;cursor:zoom-in'
   const FSDivId = 'zx-fullsceen-div-id'
   const FSImgId = 'zx-fullsceen-img-id'
+  const ImgDisplayType = 'zx-display-type'
   function initFullscreenDiv() {
     let fsDiv = document.createElement('div')
     fsDiv.id = FSDivId
@@ -151,19 +152,17 @@
     }
     let imgElmt = document.createElement('img')
     imgElmt.id = FSImgId
-    imgElmt.style = ImgAutoCss
-    imgElmt.setAttribute('zx-display-type', 'image-auto')
     imgElmt.onclick = (e) => {
       e.preventDefault()
       e.stopPropagation()
-      if (imgElmt.getAttribute('zx-display-type') == 'image-auto') {
-        imgElmt.setAttribute('zx-display-type', 'image-fw')
+      if (imgElmt.getAttribute(ImgDisplayType) == 'image-auto') {
+        imgElmt.setAttribute(ImgDisplayType, 'image-fw')
         imgElmt.style = ImgFullWidthCss
-      } else if (imgElmt.getAttribute('zx-display-type') == 'image-fw') {
-        imgElmt.setAttribute('zx-display-type', 'image-fh')
+      } else if (imgElmt.getAttribute(ImgDisplayType) == 'image-fw') {
+        imgElmt.setAttribute(ImgDisplayType, 'image-fh')
         imgElmt.style = ImgFullHeightCss
-      } else if (imgElmt.getAttribute('zx-display-type') == 'image-fh') {
-        imgElmt.setAttribute('zx-display-type', 'image-auto')
+      } else if (imgElmt.getAttribute(ImgDisplayType) == 'image-fh') {
+        imgElmt.setAttribute(ImgDisplayType, 'image-auto')
         imgElmt.style = ImgAutoCss
       }
     }
@@ -214,14 +213,30 @@
     fsDiv.style.justifyContent = 'center'
     fsDiv.style.alignItems = 'center'
 
-    let imgElm = document.getElementById(FSImgId)
-    if (!imgElm) return
-    imgElm.setAttribute('src', imgSrc)
+    let imgElmt = document.getElementById(FSImgId)
+    if (!imgElmt) return
+    imgElmt.setAttribute('src', imgSrc)
+    const windowRatio = fsDiv.clientWidth / fsDiv.clientHeight
+    const img = new Image()
+    img.onload = function () {
+      const imgRatio = this.width / this.height
+      if (imgRatio > windowRatio) {
+        imgElmt.style = ImgFullWidthCss
+        imgElmt.setAttribute(ImgDisplayType, 'image-fw')
+      } else {
+        imgElmt.style = ImgFullHeightCss
+        imgElmt.setAttribute(ImgDisplayType, 'image-fh')
+      }
+    }
+    img.src = imgSrc
   }
 
   function dismissImg() {
     let fsDiv = document.getElementById(FSDivId)
     fsDiv.style.display = 'none'
+    let imgElmt = document.getElementById(FSImgId)
+    if (!imgElmt) return
+    imgElmt.removeAttribute('src')
   }
 
   function genRandomID(tag) {
