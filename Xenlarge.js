@@ -2,7 +2,7 @@
 // @name         X Long Image Enlarge Tool
 // @name:zh-CN   推特长图放大
 // @namespace    https://github.com/yanzhili/xImageEnlarge
-// @version      2024-07-02_2
+// @version      2024-07-08
 // @description  Add a button on the left top conner of a image,for convenience of displaying long images on X
 // @description:zh-CN 在图片右上角显示一个放大按钮，方便显示推特中的长图
 // @author       James.Yan
@@ -23,13 +23,43 @@
   const MarkTag = 'zx-btn-added'
   const ImgClass = 'zx-img-class'
   const ImgBtnClass = 'zx-btn-class'
+  const aHrefMap = new Map()
+  const imgMap = new Map()
+
   function main() {
     initCss()
     initFullscreenDiv()
     observeHtml((imgElement) => {
       imgElement.classList.add(ImgClass)
-      addButton(imgElement.parentElement, imgToLarge(imgElement.src))
+      const largeImg = imgToLarge(imgElement.src)
+      distribute(imgElement, largeImg)
+      addButton(imgElement.parentElement, largeImg)
     })
+  }
+
+  function distribute(element, src) {
+    if (!element) return
+    if (element.parentElement && element.parentElement.tagName == 'A') {
+      const aHref = element.parentElement.getAttribute('href')
+      if (aHref.indexOf('/photo/') > -1) {
+        log(aHref.split('/photo/')[0], 'keyHref')
+        const keyHref = aHref.split('/photo/')[0]
+        if (!imgMap.has(src)) {
+          imgMap.set(src, keyHref)
+        }
+        if (!aHrefMap.has(keyHref)) {
+          aHrefMap.set(keyHref, [src])
+        } else {
+          const arr = aHrefMap.get(keyHref)
+          if (arr.indexOf(src) < 0) {
+            arr.push(src)
+            aHrefMap.set(keyHref, arr)
+          }
+        }
+      }
+    } else {
+      distribute(element.parentElement, src)
+    }
   }
 
   function isLongImage(imgSrc) {
@@ -140,6 +170,9 @@
   const FSDivId = 'zx-fullsceen-div-id'
   const FSImgId = 'zx-fullsceen-img-id'
   const ImgDisplayType = 'zx-display-type'
+  const NextArrowId = 'zx-next-arrow-id'
+  const PreviousArrowId = 'zx-previous-arrow-id'
+
   function initFullscreenDiv() {
     let fsDiv = document.createElement('div')
     fsDiv.id = FSDivId
@@ -168,6 +201,13 @@
 
     fsDiv.appendChild(imgElmt)
 
+    fsDiv.appendChild(genCloseButton())
+    fsDiv.appendChild(genArrowButton(true))
+    fsDiv.appendChild(genArrowButton(false))
+    document.body.appendChild(fsDiv)
+  }
+
+  function genCloseButton() {
     let closeImgDiv = document.createElement('div')
     closeImgDiv.style =
       'top: 0;right: 0px;margin-top: 10px;margin-right: 10px;width: 40px;height: 40px;position: fixed;'
@@ -182,9 +222,78 @@
     closeImgDiv.onclick = () => {
       dismissImg()
     }
+    return closeImgDiv
+  }
 
-    fsDiv.appendChild(closeImgDiv)
-    document.body.appendChild(fsDiv)
+  function genArrowButton(showNext) {
+    let arrowDiv = document.createElement('div')
+    if (showNext) {
+      arrowDiv.id = NextArrowId
+    } else {
+      arrowDiv.id = PreviousArrowId
+    }
+    if (showNext) {
+      arrowDiv.style = 'right: 0px; margin-right: 10px;'
+    } else {
+      arrowDiv.style = 'left: 0px; margin-left: 10px;'
+    }
+    arrowDiv.style.display = 'none'
+    arrowDiv.style.top = '50%'
+    arrowDiv.style.width = '35px'
+    arrowDiv.style.height = '35px'
+    arrowDiv.style.position = 'fixed'
+    arrowDiv.style.borderRadius = '50%'
+    arrowDiv.style.backgroundColor = '#000'
+    arrowDiv.style.opacity = '0.5'
+    arrowDiv.style.backgroundImage =
+      'url(data:image/svg+xml;base64,PHN2ZyB0PSIxNzIwNDMwNjM5Mzg3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjgxMzgiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHBhdGggZD0iTTU0NCA2OTAuNzczMzMzbDExNi4wNTMzMzMtMTE2LjA1MzMzM2EzMiAzMiAwIDEgMSA0NS4yMjY2NjcgNDUuMjI2NjY3bC0xNzAuNjY2NjY3IDE3MC42NjY2NjZhMzIgMzIgMCAwIDEtNDUuMjI2NjY2IDBsLTE3MC42NjY2NjctMTcwLjY2NjY2NmEzMiAzMiAwIDEgMSA0NS4yMjY2NjctNDUuMjI2NjY3bDExNi4wNTMzMzMgMTE2LjA1MzMzM1YyNzcuMzMzMzMzYTMyIDMyIDAgMCAxIDY0IDB2NDEzLjQ0eiIgZmlsbD0iI2ZmZmZmZiIgcC1pZD0iODEzOSI+PC9wYXRoPjwvc3ZnPg==)'
+    arrowDiv.style.backgroundRepeat = 'no-repeat'
+    arrowDiv.style.backgroundSize = 'cover'
+    arrowDiv.style.cursor = 'pointer'
+    if (showNext) {
+      arrowDiv.style.transform = 'rotate(-90deg)'
+    } else {
+      arrowDiv.style.transform = 'rotate(90deg)'
+    }
+    arrowDiv.onclick = (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      if (showNext) {
+        showNextImg(true)
+      } else {
+        showNextImg(false)
+      }
+    }
+    return arrowDiv
+  }
+
+  function showNextImg(showNext) {
+    let imgElmt = document.getElementById(FSImgId)
+    const imgSrc = imgElmt.getAttribute('src')
+    const keyHref = imgMap.get(imgSrc)
+    log(keyHref, imgSrc)
+    if (!keyHref) return
+    const imgArr = aHrefMap.get(keyHref)
+    log(imgArr, keyHref)
+    if (!imgArr) return
+    const imgIndex = imgArr.indexOf(imgSrc)
+    const len = imgArr.length
+
+    let fsDiv = document.getElementById(FSDivId)
+    const windowRatio = fsDiv.clientWidth / fsDiv.clientHeight
+    let imgUrl
+    if (showNext) {
+      if (imgIndex + 1 + 1 <= len) {
+        imgUrl = imgArr[imgIndex + 1]
+      }
+    } else {
+      if (imgIndex > 0) {
+        imgUrl = imgArr[imgIndex - 1]
+      }
+    }
+    if (!imgUrl) return
+    checkHasNextAndHasPrevious(imgUrl)
+    displayImg(imgUrl, windowRatio)
   }
 
   function initCss() {
@@ -211,11 +320,57 @@
     fsDiv.style.display = 'flex'
     fsDiv.style.justifyContent = 'center'
     fsDiv.style.alignItems = 'center'
+    const windowRatio = fsDiv.clientWidth / fsDiv.clientHeight
+    displayImg(imgSrc, windowRatio)
+    checkHasNextAndHasPrevious(imgSrc)
+  }
 
+  function checkHasNextAndHasPrevious(imgSrc) {
+    const nextBtn = document.getElementById(NextArrowId)
+    const previousBtn = document.getElementById(PreviousArrowId)
+    nextBtn.style.display = 'none'
+    previousBtn.style.display = 'none'
+    if (hasNext(imgSrc)) {
+      nextBtn.style.display = 'block'
+    }
+    if (hasPrevious(imgSrc)) {
+      if (previousBtn) {
+        previousBtn.style.display = 'block'
+      }
+    }
+  }
+
+  function hasNext(imgSrc) {
+    const keyHref = imgMap.get(imgSrc)
+    if (!keyHref) return false
+    const imgArr = aHrefMap.get(keyHref)
+    if (!imgArr) return false
+    const imgIndex = imgArr.indexOf(imgSrc)
+    const len = imgArr.length
+    if (len == 1) {
+      return false
+    }
+    return imgIndex + 1 < len
+  }
+
+  function hasPrevious(imgSrc) {
+    const keyHref = imgMap.get(imgSrc)
+    if (!keyHref) return false
+    const imgArr = aHrefMap.get(keyHref)
+    if (!imgArr) return false
+    const imgIndex = imgArr.indexOf(imgSrc)
+    const len = imgArr.length
+    if (len == 1) {
+      return false
+    }
+
+    return imgIndex + 1 > 1 && imgIndex + 1 <= len
+  }
+
+  function displayImg(imgSrc, windowRatio) {
     let imgElmt = document.getElementById(FSImgId)
     if (!imgElmt) return
-    imgElmt.setAttribute('src', imgSrc)
-    const windowRatio = fsDiv.clientWidth / fsDiv.clientHeight
+    imgElmt.setAttribute('src', '')
     const img = new Image()
     img.onload = function () {
       const imgRatio = this.width / this.height
@@ -226,6 +381,7 @@
         imgElmt.style = ImgFullHeightCss
         imgElmt.setAttribute(ImgDisplayType, 'image-fh')
       }
+      imgElmt.setAttribute('src', imgSrc)
     }
     img.src = imgSrc
   }
