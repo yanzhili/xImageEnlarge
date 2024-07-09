@@ -239,12 +239,11 @@
     }
     arrowDiv.style.display = 'none'
     arrowDiv.style.top = '50%'
-    arrowDiv.style.width = '35px'
-    arrowDiv.style.height = '35px'
+    arrowDiv.style.width = '45px'
+    arrowDiv.style.height = '45px'
     arrowDiv.style.position = 'fixed'
     arrowDiv.style.borderRadius = '50%'
-    arrowDiv.style.backgroundColor = '#000'
-    arrowDiv.style.opacity = '0.5'
+    arrowDiv.style.backgroundColor = '#80808091'
     arrowDiv.style.backgroundImage =
       'url(data:image/svg+xml;base64,PHN2ZyB0PSIxNzIwNDMwNjM5Mzg3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjgxMzgiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHBhdGggZD0iTTU0NCA2OTAuNzczMzMzbDExNi4wNTMzMzMtMTE2LjA1MzMzM2EzMiAzMiAwIDEgMSA0NS4yMjY2NjcgNDUuMjI2NjY3bC0xNzAuNjY2NjY3IDE3MC42NjY2NjZhMzIgMzIgMCAwIDEtNDUuMjI2NjY2IDBsLTE3MC42NjY2NjctMTcwLjY2NjY2NmEzMiAzMiAwIDEgMSA0NS4yMjY2NjctNDUuMjI2NjY3bDExNi4wNTMzMzMgMTE2LjA1MzMzM1YyNzcuMzMzMzMzYTMyIDMyIDAgMCAxIDY0IDB2NDEzLjQ0eiIgZmlsbD0iI2ZmZmZmZiIgcC1pZD0iODEzOSI+PC9wYXRoPjwvc3ZnPg==)'
     arrowDiv.style.backgroundRepeat = 'no-repeat'
