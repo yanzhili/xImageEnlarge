@@ -2,7 +2,7 @@
 // @name         X Long Image Enlarge Tool
 // @name:zh-CN   推特长图放大
 // @namespace    https://github.com/yanzhili/xImageEnlarge
-// @version      2024-07-09
+// @version      2024-07-18
 // @description  Add a button on the left top conner of a image,for convenience of displaying long images on X
 // @description:zh-CN 在图片右上角显示一个放大按钮，方便显示推特中的长图
 // @author       James.Yan
@@ -42,18 +42,24 @@
     if (element.parentElement && element.parentElement.tagName == 'A') {
       const aHref = element.parentElement.getAttribute('href')
       if (aHref.indexOf('/photo/') > -1) {
-        log(aHref.split('/photo/')[0], 'keyHref')
-        const keyHref = aHref.split('/photo/')[0]
+        const aHrefArr = aHref.split('/photo/')
+        if (aHrefArr.length < 1) return
+        log(aHrefArr[0], 'keyHref')
+        const keyHref = aHrefArr[0]
+        const index = Number(aHrefArr[1])
+        if (index <= 0) return
         if (!imgMap.has(src)) {
           imgMap.set(src, keyHref)
         }
         if (!aHrefMap.has(keyHref)) {
-          aHrefMap.set(keyHref, [src])
+          let imgArr = []
+          imgArr[index - 1] = src
+          aHrefMap.set(keyHref, imgArr)
         } else {
-          const arr = aHrefMap.get(keyHref)
-          if (arr.indexOf(src) < 0) {
-            arr.push(src)
-            aHrefMap.set(keyHref, arr)
+          const imgArr = aHrefMap.get(keyHref)
+          if (imgArr.indexOf(src) < 0) {
+            imgArr[index - 1] = src
+            aHrefMap.set(keyHref, imgArr)
           }
         }
       }
