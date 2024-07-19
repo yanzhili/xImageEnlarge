@@ -2,7 +2,7 @@
 // @name         X Long Image Enlarge Tool
 // @name:zh-CN   推特长图放大
 // @namespace    https://github.com/yanzhili/xImageEnlarge
-// @version      2024-07-18
+// @version      2024-07-19
 // @description  Add a button on the left top conner of a image,for convenience of displaying long images on X
 // @description:zh-CN 在图片右上角显示一个放大按钮，方便显示推特中的长图
 // @author       James.Yan
@@ -331,6 +331,7 @@
   }
 
   function checkHasNextAndHasPrevious(imgSrc) {
+    clearEmptyImg(imgSrc)
     const nextBtn = document.getElementById(NextArrowId)
     const previousBtn = document.getElementById(PreviousArrowId)
     nextBtn.style.display = 'none'
@@ -342,6 +343,18 @@
       if (previousBtn) {
         previousBtn.style.display = 'block'
       }
+    }
+  }
+
+  function clearEmptyImg(imgSrc) {
+    const keyHref = imgMap.get(imgSrc)
+    if (!keyHref) return
+    const imgArr = aHrefMap.get(keyHref)
+    if (imgArr) {
+      const newImgArr = imgArr.filter((i) => {
+        return !!i
+      })
+      aHrefMap.set(keyHref, newImgArr)
     }
   }
 
